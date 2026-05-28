@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Romero | Portafolio Dinámico + Fútbol</title>
+    <!-- Tailwind CSS CDN + Font Awesome + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="bg-white/90 backdrop-blur-sm shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-5 md:px-8 py-4 flex justify-between items-center">
+            <div
+                class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                &lt;Daniel Romero/&gt;
+            </div>
+            <div class="hidden md:flex space-x-6 font-medium items-center">
+                <a href="#inicio" class="text-gray-700 hover:text-indigo-600">Inicio</a>
+                <a href="#sobre-mi" class="text-gray-700 hover:text-indigo-600">Sobre mí</a>
+                <a href="#habilidades" class="text-gray-700 hover:text-indigo-600">Habilidades</a>
+                <a href="#proyectos" class="text-gray-700 hover:text-indigo-600">Proyectos</a>
+                <a href="#comentarios" class="text-gray-700 hover:text-indigo-600">Comentarios</a>
+                <a href="#contacto" class="text-gray-700 hover:text-indigo-600">Contacto</a>
+                <div id="user-menu-desktop" class="relative">
+                    <button id="profile-btn"
+                        class="flex items-center gap-2 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-full transition">
+                        <i class="fas fa-user-circle text-indigo-600 text-xl"></i>
+                        <span id="user-name-display" class="text-sm font-semibold text-gray-700">Invitado</span>
+                    </button>
+                    <div id="dropdown-menu"
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg hidden z-20 border">
+                        <a href="#" id="login-option" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Iniciar
+                            sesión</a>
+                        <a href="#" id="register-option"
+                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Registrarse</a>
+                        <a href="#" id="admin-panel-option"
+                            class="block px-4 py-2 text-indigo-600 hover:bg-gray-100 hidden">Panel Admin</a>
+                        <a href="#" id="logout-option"
+                            class="block px-4 py-2 text-red-600 hover:bg-gray-100 hidden">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <button id="menu-btn" class="md:hidden text-2xl text-gray-600"><i class="fas fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white border-t max-h-0 overflow-hidden">
+            <div class="flex flex-col space-y-3 px-6 py-4">
+                <a href="#inicio" class="text-gray-700">Inicio</a>
+                <a href="#sobre-mi" class="text-gray-700">Sobre mí</a>
+                <a href="#habilidades" class="text-gray-700">Habilidades</a>
+                <a href="#proyectos" class="text-gray-700">Proyectos</a>
+                <a href="#comentarios" class="text-gray-700">Comentarios</a>
+                <a href="#contacto" class="text-gray-700">Contacto</a>
+                <div class="border-t pt-2 mt-2">
+                    <div id="user-menu-mobile" class="flex flex-col gap-2">
+                        <button id="mobile-login-btn" class="text-left text-indigo-600">Iniciar sesión</button>
+                        <button id="mobile-register-btn" class="text-left text-indigo-600">Registrarse</button>
+                        <button id="mobile-admin-btn" class="text-left text-indigo-600 hidden">Panel Admin</button>
+                        <button id="mobile-logout-btn" class="text-left text-red-600 hidden">Cerrar sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MODAL LOGIN/REGISTRO -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden transition-all">
+        <div class="bg-white rounded-2xl max-w-md w-full mx-4 p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold">Iniciar sesión</h3>
+                <button id="close-modal" class="text-gray-500 text-2xl">&times;</button>
+            </div>
+            <form id="auth-form">
+                <input type="hidden" id="auth-mode" value="login">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-1">Email</label>
+                    <input type="email" id="auth-email"
+                        class="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-indigo-400" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="auth-password"
+                        class="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-indigo-400" required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 rounded-xl hover:bg-indigo-700 transition">Continuar</button>
+                <p id="auth-error" class="text-red-500 text-sm mt-2 text-center"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN (AÑADIR PROYECTO) -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold">Añadir nuevo proyecto</h3>
+                <button id="close-admin-modal" class="text-gray-500 text-2xl">&times;</button>
+            </div>
+            <form id="project-form">
+                <div class="mb-4"><label class="block">Título</label><input type="text" id="proj-title"
+                        class="w-full border rounded-xl px-4 py-2" required></div>
+                <div class="mb-4"><label class="block">Descripción</label><textarea id="proj-desc" rows="2"
+                        class="w-full border rounded-xl px-4 py-2" required></textarea></div>
+                <div class="mb-4"><label class="block">Tecnologías (separadas por coma, ej: PHP, MySQL,
+                        Tailwind)</label><input type="text" id="proj-tech" class="w-full border rounded-xl px-4 py-2"
+                        placeholder="HTML, CSS, JavaScript" required></div>
+                <div class="mb-4"><label class="block">Icono (clase FontAwesome, ej: fas fa-code)</label><input
+                        type="text" id="proj-icon" class="w-full border rounded-xl px-4 py-2"
+                        value="fas fa-laptop-code"></div>
+                <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700">Guardar
+                    proyecto</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="inicio" class="pt-20 pb-16 md:pt-28 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 text-center md:text-left">
+                <span
+                    class="inline-block px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">✨
+                    Portafolio Dinámico</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800">Hola, soy <span
+                        class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Daniel
+                        Romero</span></h1>
+                <div class="text-2xl md:text-3xl font-semibold mt-4 text-gray-700"><span id="typed-text"></span><span
+                        class="typing-cursor"></span></div>
+                <p class="text-gray-600 mt-6 text-lg">Programador full stack en formación. Mis habilidades crecen con
+                    cada proyecto. ¡Regístrate y deja tu comentario!</p>
+                <div class="mt-8 flex gap-4 justify-center md:justify-start">
+                    <a href="#proyectos"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105">Ver
+                        proyectos</a>
+                    <a href="#comentarios"
+                        class="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-xl font-semibold transition">Comentarios</a>
+                </div>
+            </div>
+            <div class="flex-1 flex justify-center">
+                <div
+                    class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-tr from-indigo-200 to-purple-200 flex items-center justify-center shadow-2xl animate-pulse">
+                    <i class="fas fa-user-astronaut text-7xl text-indigo-700"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold">Sobre <span class="text-indigo-600">mí</span></h2>
+                <div class="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-5 text-gray-700">
+                    <p><i class="fas fa-user-check text-indigo-500 mr-3"></i>Desarrollador autodidacta, siempre
+                        aprendiendo nuevas tecnologías. Este portafolio es dinámico: los porcentajes de habilidades
+                        aumentan a medida que añado proyectos.</p>
+                    <p><i class="fas fa-database text-indigo-500 mr-3"></i><strong>SQL nivel medio</strong> +
+                        <strong>PHP básico</strong> + <strong>JavaScript moderno</strong>.</p>
+                    <p><i class="fas fa-chart-line text-indigo-500 mr-3"></i>Los comentarios y usuarios se guardan de
+                        forma segura con cifrado.</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4"><i class="fas fa-rocket text-indigo-500 mr-2"></i> Proyectos
+                        dinámicos</h3>
+                    <p>Al añadir un proyecto (solo administrador), las habilidades se actualizan automáticamente. Si
+                        aparece una tecnología nueva, se crea su barra de progreso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades" class="py-20 bg-gray-50 reveal">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold">Habilidades <span class="text-indigo-600">Técnicas</span>
+                </h2>
+                <div class="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full"></div>
+                <p class="text-gray-500">Porcentajes calculados según los proyectos añadidos (empiezan en 0%).</p>
+            </div>
+            <div id="skills-container" class="grid md:grid-cols-2 gap-10">
+                <div class="text-center py-10 col-span-2 text-gray-500"><i class="fas fa-spinner fa-spin"></i> Cargando
+                    habilidades...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold">Mis <span class="text-indigo-600">Proyectos</span></h2>
+                <div class="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full"></div><button id="admin-add-project-btn"
+                    class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg hidden"><i class="fas fa-plus"></i> Añadir
+                    proyecto (Admin)</button>
+            </div>
+            <div id="projects-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-3 text-center text-gray-500"><i class="fas fa-spinner fa-spin"></i> Cargando
+                    proyectos...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMENTARIOS -->
+    <section id="comentarios" class="py-20 bg-gray-50 reveal">
+        <div class="container mx-auto px-6 md:px-12 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Comentarios <span class="text-indigo-600">de la
+                        comunidad</span></h2>
+                <div class="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+            <div id="comments-list" class="space-y-4 mb-8 max-h-96 overflow-y-auto p-2"></div>
+            <div id="comment-form-container" class="bg-white rounded-2xl shadow p-6">
+                <h3 class="text-xl font-bold mb-4">Deja tu comentario</h3>
+                <form id="new-comment-form"><textarea id="comment-text" rows="3"
+                        class="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-indigo-400"
+                        placeholder="Escribe tu opinión..." required></textarea><button type="submit"
+                        id="submit-comment-btn"
+                        class="mt-3 bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-700 transition"
+                        disabled>Inicia sesión para comentar</button></form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6 md:px-12 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Contacto</h2>
+                <div class="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+            <div class="bg-gray-50 rounded-2xl shadow p-8 text-center">
+                <p class="text-gray-700">Puedes escribirme a <strong>daniel@romero.dev</strong> o mediante mis redes
+                    sociales.</p>
+                <div class="flex justify-center gap-6 mt-6 text-2xl text-indigo-600"><a href="#"
+                        class="hover:scale-110 transition"><i class="fab fa-github"></i></a><a href="#"
+                        class="hover:scale-110 transition"><i class="fab fa-linkedin"></i></a><a href="#"
+                        class="hover:scale-110 transition"><i class="fab fa-twitter"></i></a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PARTIDO DE FÚTBOL 11 vs 11 ==================== -->
+    <div class="football-match-container">
+        <h3 class="text-2xl font-bold text-center mb-2">⚽ Partido: Blancos vs Rojos ⚽</h3>
+        <div class="scoreboard text-center mb-2">
+            <span class="font-bold text-white bg-blue-800 px-4 py-1 rounded-full">Blancos: <span
+                    id="score-white">0</span></span>
+            <span class="mx-4">-</span>
+            <span class="font-bold text-white bg-red-800 px-4 py-1 rounded-full">Rojos: <span id="score-red">0</span></span>
+        </div>
+        <canvas id="footballCanvas" width="1000" height="600"
+            style="width:100%; max-width:1000px; height:auto; background:#2e7d32; border-radius:20px; box-shadow:0 20px 30px -10px rgba(0,0,0,0.3);"></canvas>
+        <p class="text-center text-sm text-gray-600 mt-2">⚡ Jugadores controlan balón, pueden robar, pasar y disparar.
+            Porteros atajan.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
